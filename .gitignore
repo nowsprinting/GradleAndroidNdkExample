@@ -1,0 +1,30 @@
+#.gitignore for Android project
+
+#for MacOSX 
+.DS_Store
+
+#for build.py
+build.version
+ 
+#for Android SDK
+.keystore
+.metadata
+bin/
+gen/
+build.xml
+build.properties
+local.properties
+
+#for Android SDK 4.0
+ant.properties
+
+#for Android NDK
+obj/
+*.so
+
+#for Gradle
+.gradle/
+build/
+
+#keystore
+example.keystore
