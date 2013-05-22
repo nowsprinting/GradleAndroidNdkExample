@@ -23,6 +23,7 @@ obj/
 *.so
 
 #for Gradle
+gradle.properties
 .gradle/
 build/
 

@@ -34,14 +34,8 @@ android {
     }
 
     signingConfigs {
-        myConfig {
-            storeFile file("example.keystore")
-            storePassword "example"
-            keyAlias "example"
-            keyPassword "example"
-        }
+        myConfig
     }
-
     buildTypes {
         release {
             signingConfig signingConfigs.myConfig
@@ -58,4 +52,19 @@ android {
     tasks.withType(Compile) {
         compileTask -> compileTask.dependsOn ndkBuild
     }
+
+//キーストア情報はgradle.propertiesファイルから取り込む
+if (project.hasProperty('storeFile')) {
+    android.signingConfigs. myConfig.storeFile = file(storeFile)
+}
+if (project.hasProperty('storePassword')) {
+    android.signingConfigs. myConfig.storePassword = storePassword
+}
+if (project.hasProperty('keyAlias')) {
+    android.signingConfigs. myConfig.keyAlias = keyAlias
+}
+if (project.hasProperty('keyPassword')) {
+    android.signingConfigs. myConfig. keyPassword = keyPassword
+}
+
 }
