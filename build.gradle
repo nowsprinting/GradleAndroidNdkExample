@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.4.1'
+        classpath 'com.android.tools.build:gradle:0.11.0'
     }
 }
 apply plugin: 'android'
@@ -12,12 +12,17 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17"
+    compileSdkVersion 19
+    buildToolsVersion "19.1"
 
     defaultConfig {
         minSdkVersion 8
-        targetSdkVersion 17
+        targetSdkVersion 19
+		ndk{
+			moduleName "cppmodule"
+			abiFilter "armeabi-v7a"
+			stl "gnustl_static"
+		}
     }
     sourceSets {
         main {
@@ -43,17 +48,6 @@ android {
             proguardFile getDefaultProguardFile('proguard-android.txt')
             proguardFile file('proguard-project.txt')
         }
-    }
-
-    tasks.withType(com.android.build.gradle.tasks.PackageApplication) {
-        pkgTask -> pkgTask.jniDir new File(projectDir, 'libs')
-    }
-
-    task ndkBuild(type:Exec) {
-        commandLine 'ndk-build'
-    }
-    tasks.withType(Compile) {
-        compileTask -> compileTask.dependsOn ndkBuild
     }
 
 //キーストア情報はgradle.propertiesファイルから取り込む
