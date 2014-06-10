@@ -36,8 +36,6 @@ build/
 .idea/scopes/
 .idea/inspectionProfiles/
 *.iml
-*.ipr
-*.iws
 
 #keystore
 example.keystore
