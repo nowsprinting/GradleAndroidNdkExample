@@ -1,0 +1,25 @@
+language: android
+jdk: oraclejdk7
+env: NDK_VER=r9d ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
+
+android:
+  components:
+    - build-tools-19.1.0
+  licenses:
+    - android-sdk-license-[0-9a-f]{8}
+
+install:
+  - if [ `uname -m` = x86_64]; then wget http://dl.google.com/android/ndk/android-ndk-${NDK_VER}-linux-x86_64.tar.bz2 -O ndk.tgz; else wget http://dl.google.com/android/ndk/android-ndk-${NDK_VER}-linux-x86.tar.bz2 -O ndk.tgz; fi
+  - tar -xf ndk.tgz
+  - export ANDROID_NDK_HOME=`pwd`/android-ndk-${NDK_VER}
+
+before_script:
+  # Create and start emulator
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - adb wait-for-device
+  - adb shell input keyevent 82 &
+
+script:
+  - ./gradlew assembleDebug
+
