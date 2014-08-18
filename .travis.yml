@@ -1,10 +1,21 @@
 language: android
-jdk: oraclejdk7
-env: NDK_VER=r9d ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
+
+jdk:
+  - oraclejdk7
+
+env:
+  global:
+    - NDK_VER=r9d
+  matrix:
+    - ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-17 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-8 ANDROID_ABI=armeabi
 
 android:
   components:
     - build-tools-19.1.0
+    - android-17
+    - android-8
   licenses:
     - android-sdk-license-[0-9a-f]{8}
 
