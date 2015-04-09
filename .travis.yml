@@ -25,7 +25,6 @@ install:
   - export ANDROID_NDK_HOME=`pwd`/android-ndk-${NDK_VER}
 
 before_script:
-  # Create and start emulator
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - adb wait-for-device
@@ -34,3 +33,6 @@ before_script:
 script:
   - ./gradlew assembleDebug
 
+notifications:
+  slack:
+    secure: E+LzDFiEM+Hx6gbPbcDD7pOZyhStEVZ3K8/isKY8ZllMaDEPXS9so9z5PWJLUNsmXmJY06/RvVOiTsJFu6wlYi9r08VZA9Ygaq6JKky9chlyrHBdai44nNJj4EBtsvtWib1o4IRgJJAtfsUYNxtpKKHO/PvAONNPp22lIXoVOpE=
